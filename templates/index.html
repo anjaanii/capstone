@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomegranate Pricing</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .navbar {
+            background-color: #333;
+            color: white;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin: 0 1rem;
+        }
+        .logo {
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+        .content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+        .calendar-container {
+            text-align: center;
+        }
+        .footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="logo">Logo</div>
+        <div>
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#pricing">Pricing</a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content">
+        <div class="calendar-container">
+            <h1>Select a Date</h1>
+            <input type="date" id="date-picker" onchange="getPomegranatePrice()">
+            <p id="price-display">Select a date to see the predicted price of pomegranates.</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>&copy; 2024 Pomegranate Pricing Inc. All rights reserved.</p>
+        <p>Contact us: info@pomegranatepricing.com</p>
+    </div>
+
+    <script>
+        function getPomegranatePrice() {
+            const date = document.getElementById('date-picker').value;
+            if (date) {
+                // Here you would integrate with your model to get the price prediction.
+                // For demonstration, let's assume a dummy price is returned.
+                const dummyPrice = '$3.50 per kg';
+                document.getElementById('price-display').textContent = `Predicted price for ${date}: ${dummyPrice}`;
+            }
+        }
+    </script>
+</body>
+</html>
