@@ -88,12 +88,14 @@
       margin-bottom: 1rem;
     }
 
-    .calendar-container input[type="date"] {
+    .calendar-container input[type="date"],
+    .calendar-container select {
       padding: 0.5rem;
       font-size: 1rem;
       border-radius: 4px;
       border: 1px solid #ccc;
       margin-bottom: 1rem;
+      width: 100%;
     }
 
     .calendar-container p {
@@ -147,9 +149,34 @@
   <!-- Main Content -->
   <div class="content">
     <div class="calendar-container">
-      <h1>Select a Date</h1>
+      <h1>Select a Date and Location</h1>
+      <select id="state-picker" onchange="updateDistricts()">
+        <option value="">Select a State</option>
+        <option value="Chandigarh">Chandigarh</option>
+        <option value="Delhi">Delhi</option>
+        <option value="Gujarat">Gujarat</option>
+        <option value="Haryana">Haryana</option>
+        <option value="Himachal">Himachal</option>
+        <option value="JandK">Jammu and Kashmir</option>
+        <option value="Jharkhand">Jharkhand</option>
+        <option value="Karnataka">Karnataka</option>
+        <option value="Kerala">Kerala</option>
+        <option value="Maharashtra">Maharashtra</option>
+        <option value="MP">Madhya Pradesh</option>
+        <option value="Punjab">Punjab</option>
+        <option value="Rajasthan">Rajasthan</option>
+        <option value="Telangana">Telangana</option>
+        <option value="UP">Uttar Pradesh</option>
+        <option value="Uttrakhand">Uttrakhand</option>
+        <option value="WBengal">West Bengal</option>
+        <!-- Add more states as needed -->
+      </select>
+      <select id="district-picker" disabled>
+        <option value="">Select a District</option>
+        <!-- Districts will be populated based on the selected state -->
+      </select>
       <input type="date" id="date-picker" onchange="getPomegranatePrice()">
-      <p id="price-display">Select a date to see the predicted price of pomegranates.</p>
+      <p id="price-display">Select a date and location to see the predicted price of pomegranates.</p>
     </div>
   </div>
 
@@ -161,10 +188,61 @@
   </div>
 
   <script>
+    const districtsByState = {
+      Maharashtra: ["Ahmednagar", "Amarawati", "Aurangabad", "Chandrapur", "Jalgaon", "Mumbai", "Nagpur", "Nashik", "Pune", "Sangli", "Sholapur"],
+      Karnataka: ["Bangalore", "Dharwad", , "Davangere", "Gadag", "Gulbarga", "Kolar", "Mangalore(Dakshin Kannad)", "Mysore", "Udupi"],
+      Gujarat: ["Ahmedabad", "Bharuch", "Rajkot", "Vadodara(Baroda)"],
+      Haryana: ["Ambala", "Bhiwani", "Faridabad", "Fatehabad", "Gurgaon", "Hissar", "Karnal", "Kurukshetra", "Mahendragarh-Narnaul", "Mewat", "Palwal", "Panipat", "Rohtak", "Sirsa", "Sonipat", "Yamuna Nagar"],
+      Himachal: ["Bilaspur", "Chamba", "Hamirpur", "Kangra", "Kullu", "Mandi", "Shimla", "Solan", "Una"],
+      JandK: ["Anantnag", "Jammu", "Kathua", "Rajouri", "Srinagar", "Udhampur"],
+      Kerala: ["Idukki", "Malappuram"],
+      MP: ["Bhopal", "Burhanpur", "Chhatarpur", "Guna", "Gwalior", "Harda", "Indore", "Narsinghpur", "Satna", "Sheopur", "Ujjain"],
+      Punjab: ["Amritsar", "Barnala", "Bhatinda", "Faridkot", "Fatehgarh", "Fazilka", "Ferozpur", "Gurdaspur", "Hoshiarpur", "Jalandhar", "kapurthala", "Ludhiana", "Mansa", "Mohali", "Muktsar", "Nawanshahr", "Pathankot", "Patiala", "Ropar (Rupnagar)", "Sangrur"],
+      Rajasthan: ["Ajmer", "Alwar", "Kota"],
+      UP: ["Agra", "Aligarh", "Allahabad", "Ambedkarnagar", "Auraiya", "Azamgarh", "Badaun", "Baghpat", "Bahraich", "Ballia", "Balrampur", "Banda", "Barabanki", "Bareilly", "Basti", "Bijnor", "Bulandshahar", "Chitrakut", "Deoria", "Etah", "Faizabad", "Farukhabad", "Firozabad", "Gautam Budh Nagar", "Ghaziabad", "Gonda", "Gorakhpur", "Hamirpur", "Hardoi", "Hathras", "Jalaun (Orai)", "Jaunpur", "Jhansi", "Jyotiba Phule Nagar", "Kannuj", "Kanpur", "Kaushambi", "Khiri (Lakhimpur)", "Lakhimpur", "Lalitpur", "Lucknow", "Maharajganj", "Mahoba", "Mainpuri", "Mathura", "Meerut", "Mirzapur", "Muradabad", "Muzaffarnagar", "Padrauna(Kusinagar)", "Pillibhit", "Pratapgarh", "Raebarelli", "Rampur", "Saharanpur", "Sant Kabir Nagar", "Shahjahanpur", "Sitapur", "Sultanpur", "Unnao", "Varanasi"],
+      Uttrakhand: ["Dehradoon", "Garhwal (Pauri)", "Haridwar", "Nanital", "Udham Singh Nagar"],
+      WBengal: ["Kolkata"],
+      Chandigarh: ["Chandigarh"],
+      Delhi: ["Delhi"],
+      Telangana: ["Hyderabad", "Warangal"],
+      Jharkhand: ["Dhanbad", "Garhwa", "Hazaribagh"]
+
+      // Add more states and their districts as needed
+    };
+
+    function updateDistricts() {
+      const statePicker = document.getElementById("state-picker");
+      const districtPicker = document.getElementById("district-picker");
+      const selectedState = statePicker.value;
+
+      // Clear previous districts
+      districtPicker.innerHTML = '<option value="">Select a District</option>';
+
+      if (selectedState && districtsByState[selectedState]) {
+        // Enable the district dropdown and populate with relevant districts
+        districtPicker.disabled = false;
+        districtsByState[selectedState].forEach(district => {
+          const option = document.createElement("option");
+          option.value = district;
+          option.textContent = district;
+          districtPicker.appendChild(option);
+        });
+      } else {
+        districtPicker.disabled = true;
+      }
+    }
+
     function getPomegranatePrice() {
       const date = new Date(document.getElementById('date-picker').value);
+      const state = document.getElementById('state-picker').value;
+      const district = document.getElementById('district-picker').value;
       const today = new Date();
       const maxDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 10); // 10 days from today
+
+      if (!state || !district) {
+        alert("Please select a state and a district.");
+        return;
+      }
 
       if (date > maxDate) {
         alert("Please select a date within the next 10 days.");
@@ -182,7 +260,7 @@
         // Here you would integrate with your model to get the price prediction.
         // For demonstration, let's assume a dummy price is returned.
         const dummyPrice = '$3.50 per kg';
-        document.getElementById('price-display').textContent = `Predicted price for ${date.toLocaleDateString()}: ${dummyPrice}`;
+        document.getElementById('price-display').textContent = `Predicted price for ${district}, ${state} on ${date.toLocaleDateString()}: ${dummyPrice}`;
       }
     }
   </script>
