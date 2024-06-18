@@ -153,7 +153,7 @@
       <input type="file" id="image-picker" accept="image/*" onchange="getPomegranatePrice()">
       <button id="submit-button" class="btn btn-success hidden my-2" onclick="submitImage()">Submit</button>
       <p id="price-display">The Quality of pomegranate is G2</p>
- 
+
     </div>
   </div>
 
@@ -166,20 +166,20 @@
 
   <script>
     function getPomegranatePrice() {
-        const fileInput = document.getElementById('image-picker');
-        const file = fileInput.files[0];
-    
-        if (file) {
-            // Handle the file (image) here
-            console.log("Image file selected:", file.name);
-            // Add your code to process the image and get the pomegranate price
-        } else {
-            console.log("No file selected.");
-        }
-    }
-    </script>
+      const fileInput = document.getElementById('image-picker');
+      const file = fileInput.files[0];
 
- 
+      if (file) {
+        // Handle the file (image) here
+        console.log("Image file selected:", file.name);
+        // Add your code to process the image and get the pomegranate price
+      } else {
+        console.log("No file selected.");
+      }
+    }
+  </script>
+
+
 
 
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
