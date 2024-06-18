@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomegranate Price Prediction</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        .navbar {
+            background-color: #4CAF50;
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin: 0 1rem;
+            font-weight: bold;
+        }
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+        .logo {
+            font-size: 1.8rem;
+        }
+        .content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+        .calendar-container {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+        .calendar-container h1 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .calendar-container input[type="date"] {
+            padding: 0.5rem;
+            font-size: 1rem;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            margin-bottom: 1rem;
+        }
+        .calendar-container p {
+            font-size: 1.2rem;
+            margin-top: 1rem;
+        }
+        .footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+        .footer p {
+            margin: 0.5rem 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="logo">Pomegranate Price Prediction</div>
+        <div>
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#pricing">Contact Us</a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content">
+        <div class="calendar-container">
+            <h1>Select a Date</h1>
+            <input type="date" id="date-picker" onchange="getPomegranatePrice()">
+            <p id="price-display">Select a date to see the predicted price of pomegranates.</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>&copy; 2024 Pomegranate Pricing Inc. All rights reserved.</p>
+        <p>Contact us: <a href="mailto:info@pomegranatepricing.com" style="color: #4CAF50;">info@pomegranatepricing.com</a></p>
+    </div>
+
+    <script>
+        function getPomegranatePrice() {
+            const date = document.getElementById('date-picker').value;
+            if (date) {
+                // Here you would integrate with your model to get the price prediction.
+                // For demonstration, let's assume a dummy price is returned.
+                const dummyPrice = '$3.50 per kg';
+                document.getElementById('price-display').textContent = `Predicted price for ${date}: ${dummyPrice}`;
+            }
+        }
+    </script>
+</body>
+</html>
