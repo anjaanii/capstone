@@ -22,9 +22,5 @@ def contact():
 def sex():
     return render_template('sex.html')
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 090a783c689a53730feb336edf672e9ac4edec99
 if __name__=="__main__":
     app.run(debug=True)

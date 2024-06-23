@@ -8,11 +8,7 @@ if defined _OLD_CODEPAGE (
     "%SystemRoot%\System32\chcp.com" 65001 > nul
 )
 
-<<<<<<< HEAD:venv/Scripts/activate.bat
 set VIRTUAL_ENV=C:\Users\91896\Desktop\capstone\venv
-=======
-set VIRTUAL_ENV=C:\Users\Avanii Mohil.000\OneDrive\Desktop\capstone\myenv
->>>>>>> 090a783c689a53730feb336edf672e9ac4edec99:myenv/Scripts/activate.bat
 
 if not defined PROMPT set PROMPT=$P$G
 
