@@ -18,9 +18,9 @@ def pricing():
 def contact():
     return render_template('contact.html')
 
-@app.route('/sex')
-def sex():
-    return render_template('sex.html')
+# @app.route('/sex')
+# def sex():
+#     return render_template('sex.html')
 
 if __name__=="__main__":
     app.run(debug=True)
