@@ -1675,7 +1675,7 @@
     <nav>
       <div class="logo">
         <a href="index.html"><img
-            src="https://res.cloudinary.com/abdel-rahman-ali/image/upload/v1535988525/logo-rosa.png"
+            src="https://imageshack.com/i/posKvp3dp"
             alt="Rosa Logo"></a>
       </div>
       <div class="toggle">
@@ -1875,7 +1875,14 @@
     });
 
     window.onscroll = function () {
-
+    // make navbar fixed & change logo color
+    if (window.pageYOffset > headerSection.offsetHeight - 75) {
+        nav.classList.add("active");
+        logoImage.src = "https://imageshack.com/i/posKvp3dp";
+    } else {
+        nav.classList.remove("active");
+        logoImage.src = "https://imageshack.com/i/posKvp3dp";
+    }
 
       // header welcome fade out and in
       if (window.pageYOffset > 0) {
