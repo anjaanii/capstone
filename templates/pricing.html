@@ -1212,347 +1212,251 @@ footer .newsletter i {
           <li><a href="#">CONTACT THE TEAM</a></li>
       </ul>
   </div>
-<script>
-  // constants
-const body = document.querySelector("body"),
-    loader = document.querySelector(".loader-wrap"),
-    links = document.querySelectorAll('a[href="#"]'),
-    nav = document.querySelector("header nav"),
-    navToggle = document.querySelector("header nav .toggle"),
-    navSpanMiddle = document.querySelector("header nav .toggle .middle"),
-    navNavigationBar = document.querySelector("header nav .navigation-bar"),
-    navNavigationBarLi = document.querySelectorAll(
-        "header nav .navigation-bar li"
-    ),
-    headerText = document.querySelector("header .text"),
-    headerSection = document.querySelector("header"),
-    aboutSection = document.querySelector(".about-us"),
-    recipeSection = document.querySelector(".recipes"),
-    menuSection = document.querySelector(".menu"),
-    fixedImageSection = document.querySelector(".fixed-image"),
-    footerSection = document.querySelector("footer"),
-    dotOne = document.querySelector(".dots .one"),
-    dotTwo = document.querySelector(".dots .two"),
-    dotThree = document.querySelector(".dots .three"),
-    dots = document.querySelectorAll(".dots > div"),
-    logoImage = document.querySelector("header nav .logo img"),
-    svgDown = document.querySelector("header .arrow-down"),
-    svgUp = document.querySelector(".copyright .arrow-up"),
-    menuImgs = document.querySelectorAll(".menu .menu-image-container img"),
-    boxModel = document.querySelector(".menu .box-model"),
-    menuImageContainer = document.querySelector(".menu-image-container"),
-    boxModelArrow = document.querySelector(".menu .box-model .arrow"),
-    boxModelImage = document.querySelector(".menu .box-model img"),
-    pageTitle = document.querySelector("title");
+  <script>
+    // constants
+    const body = document.querySelector("body"),
+        loader = document.querySelector(".loader-wrap"),
+        links = document.querySelectorAll('a[href="#"]'),
+        nav = document.querySelector("header nav"),
+        navToggle = document.querySelector("header nav .toggle"),
+        navSpanMiddle = document.querySelector("header nav .toggle .middle"),
+        navNavigationBar = document.querySelector("header nav .navigation-bar"),
+        navNavigationBarLi = document.querySelectorAll(
+            "header nav .navigation-bar li"
+        ),
+        headerText = document.querySelector("header .text"),
+        headerSection = document.querySelector("header"),
+        aboutSection = document.querySelector(".about-us"),
+        recipeSection = document.querySelector(".recipes"),
+        menuSection = document.querySelector(".menu"),
+        fixedImageSection = document.querySelector(".fixed-image"),
+        footerSection = document.querySelector("footer"),
+        dotOne = document.querySelector(".dots .one"),
+        dotTwo = document.querySelector(".dots .two"),
+        dotThree = document.querySelector(".dots .three"),
+        dots = document.querySelectorAll(".dots > div"),
+        logoImage = document.querySelector("header nav .logo img"),
+        svgDown = document.querySelector("header .arrow-down"),
+        svgUp = document.querySelector(".copyright .arrow-up"),
+        menuImgs = document.querySelectorAll(".menu .menu-image-container img"),
+        boxModel = document.querySelector(".menu .box-model"),
+        menuImageContainer = document.querySelector(".menu-image-container"),
+        boxModelArrow = document.querySelector(".menu .box-model .arrow"),
+        boxModelImage = document.querySelector(".menu .box-model img"),
+        pageTitle = document.querySelector("title");
 
-// remove loader
-function fadeOutEffect() {
-    const fadeEffect = setInterval(function() {
-        if (!loader.style.opacity) {
-            loader.style.opacity = 1;
-        }
-        if (loader.style.opacity > 0) {
-            loader.style.opacity -= 0.4;
+    // remove loader
+    function fadeOutEffect() {
+        const fadeEffect = setInterval(function () {
+            if (!loader.style.opacity) {
+                loader.style.opacity = 1;
+            }
+            if (loader.style.opacity > 0) {
+                loader.style.opacity -= 0.4;
+            } else {
+                body.classList.remove('stop-scroll');
+                loader.classList.add('remove');
+                clearInterval(fadeEffect);
+            }
+        }, 100);
+    }
+    window.addEventListener("load", fadeOutEffect);
+
+    // prevent links click hash
+    links.forEach(link =>
+        link.addEventListener("click", function (e) {
+            e.preventDefault();
+        })
+    );
+
+    // toggle hamburger menu button
+    navToggle.addEventListener("click", () => {
+        navToggle.classList.toggle("active");
+        navSpanMiddle.classList.toggle("hide");
+        navNavigationBar.classList.toggle("show");
+    });
+
+    // show active navigationbar li
+    navNavigationBarLi.forEach(li =>
+        li.addEventListener("click", () => {
+            const arr = Array.from(li.parentElement.children);
+            arr.forEach(li => li.classList.remove("active"));
+            li.classList.add("active");
+        })
+    );
+
+    // // svg-up smooth scroll
+    // svgUp.addEventListener("click", () => {
+    //     window.scroll({
+    //         top: 0,
+    //         behavior: "smooth"
+    //     });
+    // });
+
+    window.onscroll = function () {
+        // make navbar fixed & change logo color
+        if (window.pageYOffset > headerSection.offsetHeight - 75) {
+            nav.classList.add("active");
+            logoImage.src = "https://res.cloudinary.com/abdel-rahman-ali/image/upload/v1535988525/logo-rosa.png";
         } else {
-            body.classList.remove('stop-scroll');
-            loader.classList.add('remove');
-            clearInterval(fadeEffect);
-        }
-    }, 100);
-}
-window.addEventListener("load", fadeOutEffect);
-
-// prevent links click hash
-links.forEach(link =>
-    link.addEventListener("click", function(e) {
-        e.preventDefault();
-    })
-);
-
-// toggle hamburger menu button
-navToggle.addEventListener("click", () => {
-    navToggle.classList.toggle("active");
-    navSpanMiddle.classList.toggle("hide");
-    navNavigationBar.classList.toggle("show");
-});
-
-// show active navigationbar li
-navNavigationBarLi.forEach(li =>
-    li.addEventListener("click", () => {
-        const arr = Array.from(li.parentElement.children);
-        arr.forEach(li => li.classList.remove("active"));
-        li.classList.add("active");
-    })
-);
-
-// svg-up smooth scroll
-svgUp.addEventListener("click", () => {
-    window.scroll({
-        top: 0,
-        behavior: "smooth"
-    });
-});
-
-window.onscroll = function() {
-    // make navbar fixed & change logo color
-    if (window.pageYOffset > headerSection.offsetHeight - 75) {
-        nav.classList.add("active");
-        logoImage.src = "https://res.cloudinary.com/abdel-rahman-ali/image/upload/v1535988525/logo-rosa.png";
-    } else {
-        nav.classList.remove("active");
-        logoImage.src = "https://res.cloudinary.com/abdel-rahman-ali/image/upload/v1535988515/logo-rosa-white.png";
-    }
-
-    // header welcome fade out and in
-    if (window.pageYOffset > 0) {
-        headerText.style.opacity = -window.pageYOffset / 300 + 1;
-    }
-    // home page JS
-    if (pageTitle.text === "ROSA- Restaurant") {
-        //change dots background color
-        if (window.pageYOffset < headerSection.offsetHeight * 0.5) {
-            dots.forEach(dot => dot.classList.remove("black"));
-            dotTwo.classList.remove("active");
-            dotOne.classList.add("active");
-        } else if (
-            window.pageYOffset > headerSection.offsetHeight * 0.5 &&
-            window.pageYOffset < recipeSection.offsetTop * 0.72
-        ) {
-            dots.forEach(dot => dot.classList.add("black"));
-        } else if (
-            window.pageYOffset > recipeSection.offsetTop * 0.75 &&
-            window.pageYOffset < menuSection.offsetTop * 0.81
-        ) {
-            dots.forEach(dot => dot.classList.remove("black"));
-            dotOne.classList.remove("active");
-            dotThree.classList.remove("active");
-            dotTwo.classList.add("active");
-        } else if (
-            window.pageYOffset > menuSection.offsetTop * 0.81 &&
-            window.pageYOffset < fixedImageSection.offsetTop * 0.86
-        ) {
-            dots.forEach(dot => dot.classList.add("black"));
-            dotThree.classList.remove("active");
-            dotTwo.classList.add("active");
-        } else if (
-            window.pageYOffset > fixedImageSection.offsetTop * 0.86 &&
-            window.pageYOffset < footerSection.offsetTop * 0.72
-        ) {
-            dots.forEach(dot => dot.classList.remove("black"));
-            dotTwo.classList.remove("active");
-            dotThree.classList.add("active");
-        } else if (
-            window.pageYOffset > footerSection.offsetTop * 0.72 &&
-            window.pageYOffset < footerSection.offsetTop * 0.901
-        ) {
-            dots.forEach(dot => dot.classList.add("black"));
-        } else if (window.pageYOffset > footerSection.offsetTop * 0.901) {
-            dots.forEach(dot => dot.classList.remove("black"));
-        }
-    }
-};
-
-// home page JS
-if (pageTitle.text === "ROSA- Restaurant") {
-    // svg-down smooth scroll
-    svgDown.addEventListener("click", () => {
-        window.scroll({
-            top: aboutSection.offsetTop - 30,
-            behavior: "smooth"
-        });
-    });
-
-    // dots smooth scroll
-    dots.forEach(dot =>
-        dot.addEventListener("click", function() {
-            window.scrollTo({
-                top: document.querySelector(this.dataset.x).offsetTop - 100,
-                behavior: "smooth"
-            });
-        })
-    );
-
-    // show box model
-    menuImgs.forEach(img =>
-        img.addEventListener("click", function() {
-            const arr = Array.from(this.parentElement.parentElement.children);
-
-            arr.forEach(div => div.classList.remove("active"));
-
-            this.parentElement.classList.add("active");
-            boxModel.classList.add("active");
-            boxModelImage.src = this.src;
-            boxModelImage.classList.add("active");
-            body.classList.add("hide-scroll");
-        })
-    );
-
-    // box model functions
-    function boxModelFun(e) {
-        // close box model
-        if (
-            e.code === "Escape" ||
-            (e.target.tagName === "DIV" && !e.target.classList.contains("arrow")) ||
-            e.target.classList.contains("close")
-        ) {
-            boxModel.classList.remove("active");
-            body.classList.remove("hide-scroll");
+            nav.classList.remove("active");
+            logoImage.src = "https://res.cloudinary.com/abdel-rahman-ali/image/upload/v1535988515/logo-rosa-white.png";
         }
 
-        if (boxModel.classList.contains("active")) {
-            if (
-                e.code === "ArrowRight" ||
-                e.code === "ArrowLeft" ||
-                e.target.classList.contains("arrow-right") ||
-                e.target.classList.contains("arrow-left")
+        // header welcome fade out and in
+        if (window.pageYOffset > 0) {
+            headerText.style.opacity = -window.pageYOffset / 300 + 1;
+        }
+        // home page JS
+        if (pageTitle.text === "ROSA- Restaurant") {
+            //change dots background color
+            if (window.pageYOffset < headerSection.offsetHeight * 0.5) {
+                dots.forEach(dot => dot.classList.remove("black"));
+                dotTwo.classList.remove("active");
+                dotOne.classList.add("active");
+            } else if (
+                window.pageYOffset > headerSection.offsetHeight * 0.5 &&
+                window.pageYOffset < recipeSection.offsetTop * 0.72
             ) {
-                const arr = Array.from(menuImageContainer.children);
-                const active = arr.find(div => div.classList.contains("active"));
-
-                // change box model image
-                if (
-                    e.target.classList.contains("arrow-right") ||
-                    e.code === "ArrowRight"
-                ) {
-                    if (active.nextElementSibling === null) {
-                        active.parentElement.firstElementChild.classList.add("active");
-                        boxModelImage.src =
-                            active.parentElement.firstElementChild.firstElementChild.src;
-                    } else {
-                        active.nextElementSibling.classList.add("active");
-                        boxModelImage.src = active.nextElementSibling.firstElementChild.src;
-                    }
-                }
-
-                // change box model image
-                else if (
-                    e.target.classList.contains("arrow-left") ||
-                    e.code === "ArrowLeft"
-                ) {
-                    if (active.previousElementSibling === null) {
-                        active.parentElement.lastElementChild.classList.add("active");
-                        boxModelImage.src =
-                            active.parentElement.lastElementChild.lastElementChild.src;
-                    } else {
-                        active.previousElementSibling.classList.add("active");
-                        boxModelImage.src =
-                            active.previousElementSibling.firstElementChild.src;
-                    }
-                }
-                active.classList.remove("active");
+                dots.forEach(dot => dot.classList.add("black"));
+            } else if (
+                window.pageYOffset > recipeSection.offsetTop * 0.75 &&
+                window.pageYOffset < menuSection.offsetTop * 0.81
+            ) {
+                dots.forEach(dot => dot.classList.remove("black"));
+                dotOne.classList.remove("active");
+                dotThree.classList.remove("active");
+                dotTwo.classList.add("active");
+            } else if (
+                window.pageYOffset > menuSection.offsetTop * 0.81 &&
+                window.pageYOffset < fixedImageSection.offsetTop * 0.86
+            ) {
+                dots.forEach(dot => dot.classList.add("black"));
+                dotThree.classList.remove("active");
+                dotTwo.classList.add("active");
+            } else if (
+                window.pageYOffset > fixedImageSection.offsetTop * 0.86 &&
+                window.pageYOffset < footerSection.offsetTop * 0.72
+            ) {
+                dots.forEach(dot => dot.classList.remove("black"));
+                dotTwo.classList.remove("active");
+                dotThree.classList.add("active");
+            } else if (
+                window.pageYOffset > footerSection.offsetTop * 0.72 &&
+                window.pageYOffset < footerSection.offsetTop * 0.901
+            ) {
+                dots.forEach(dot => dot.classList.add("black"));
+            } else if (window.pageYOffset > footerSection.offsetTop * 0.901) {
+                dots.forEach(dot => dot.classList.remove("black"));
             }
         }
-    }
+    };
 
-    window.addEventListener("keydown", boxModelFun);
-    window.addEventListener("click", boxModelFun);
-    boxModelArrow.addEventListener("click", boxModelFun);
-}
-
+    
     const districtsByState = {
-      AndamanandNicobarIslands: ["Nicobar", "North and Middle Andaman", "South Andaman"],
-      AndhraPradesh: ["Anantapur", "Chittoor", "East Godavari", "Guntur", "Krishna"],
-      ArunachalPradesh: ["Anjaw", "Changlang", "Dibang Valley", "East Kameng", "East Siang"],
-      Assam: ["Baksa", "Barpeta", "Biswanath", "Bongaigaon", "Cachar"],
-      Bihar: ["Araria", "Arwal", "Aurangabad", "Banka", "Begusarai"],
-      Chandigarh: ["Chandigarh"],
-      Chhattisgarh: ["Balod", "Baloda Bazar", "Balrampur", "Bastar", "Bemetara"],
-      DadraandNagarHaveliandDamanAndDiu: ["Dadra and Nagar Haveli", "Daman", "Diu"],
-      Delhi: ["Central Delhi", "East Delhi", "New Delhi", "North Delhi", "North East Delhi"],
-      Goa: ["North Goa", "South Goa"],
-      Gujarat: ["Ahmedabad", "Bharuch", "Rajkot", "Vadodara(Baroda)"],
-      Haryana: ["Ambala", "Bhiwani", "Faridabad", "Fatehabad", "Gurgaon", "Hissar", "Karnal", "Kurukshetra", "Mahendragarh-Narnaul", "Mewat", "Palwal", "Panipat", "Rohtak", "Sirsa", "Sonipat", "Yamuna Nagar"],
-      HimachalPradesh: ["Bilaspur", "Chamba", "Hamirpur", "Kangra", "Kullu", "Mandi", "Shimla", "Solan", "Una"],
-      JammuandKashmir: ["Anantnag", "Jammu", "Kathua", "Rajouri", "Srinagar", "Udhampur"],
-      Jharkhand: ["Dhanbad", "Garhwa", "Hazaribagh"],
-      Karnataka: ["Bangalore", "Dharwad", "Davangere", "Gadag", "Gulbarga", "Kolar", "Mangalore(Dakshin Kannad)", "Mysore", "Udupi"],
-      Kerala: ["Idukki", "Malappuram"],
-      Ladakh: ["Kargil", "Leh"],
-      Lakshadweep: ["Lakshadweep"],
-      MadhyaPradesh: ["Bhopal", "Burhanpur", "Chhatarpur", "Guna", "Gwalior", "Harda", "Indore", "Narsinghpur", "Satna", "Sheopur", "Ujjain"],
-      Maharashtra: ["Ahmednagar", "Amarawati", "Aurangabad", "Chandrapur", "Jalgaon", "Mumbai", "Nagpur", "Nashik", "Pune", "Sangli", "Sholapur"],
-      Manipur: ["Bishnupur", "Chandel", "Churachandpur", "Imphal East", "Imphal West"],
-      Meghalaya: ["East Garo Hills", "East Jaintia Hills", "East Khasi Hills", "North Garo Hills", "Ri Bhoi"],
-      Mizoram: ["Aizawl", "Champhai", "Kolasib", "Lawngtlai", "Lunglei"],
-      Nagaland: ["Dimapur", "Kiphire", "Kohima", "Longleng", "Mokokchung"],
-      Odisha: ["Angul", "Balangir", "Balasore", "Bargarh", "Bhadrak"],
-      Puducherry: ["Karaikal", "Mahe", "Puducherry", "Yanam"],
-      Punjab: ["Amritsar", "Barnala", "Bhatinda", "Faridkot", "Fatehgarh", "Fazilka", "Ferozpur", "Gurdaspur", "Hoshiarpur", "Jalandhar", "kapurthala", "Ludhiana", "Mansa", "Mohali", "Muktsar", "Nawanshahr", "Pathankot", "Patiala", "Ropar (Rupnagar)", "Sangrur"],
-      Rajasthan: ["Ajmer", "Alwar", "Kota"],
-      Sikkim: ["East Sikkim", "North Sikkim", "South Sikkim", "West Sikkim"],
-      TamilNadu: ["Ariyalur", "Chengalpattu", "Chennai", "Coimbatore", "Cuddalore"],
-      Telangana: ["Hyderabad", "Warangal"],
-      Tripura: ["Dhalai", "Gomati", "Khowai", "North Tripura", "Sepahijala"],
-      UttarPradesh: ["Agra", "Aligarh", "Allahabad", "Ambedkarnagar", "Auraiya", "Azamgarh", "Badaun", "Baghpat", "Bahraich", "Ballia", "Balrampur", "Banda", "Barabanki", "Bareilly", "Basti", "Bijnor", "Bulandshahar", "Chitrakut", "Deoria", "Etah", "Faizabad", "Farukhabad", "Firozabad", "Gautam Budh Nagar", "Ghaziabad", "Gonda", "Gorakhpur", "Hamirpur", "Hardoi", "Hathras", "Jalaun (Orai)", "Jaunpur", "Jhansi", "Jyotiba Phule Nagar", "Kannuj", "Kanpur", "Kaushambi", "Khiri (Lakhimpur)", "Lakhimpur", "Lalitpur", "Lucknow", "Maharajganj", "Mahoba", "Mainpuri", "Mathura", "Meerut", "Mirzapur", "Muradabad", "Muzaffarnagar", "Padrauna(Kusinagar)", "Pillibhit", "Pratapgarh", "Raebarelli", "Rampur", "Saharanpur", "Sant Kabir Nagar", "Shahjahanpur", "Sitapur", "Sultanpur", "Unnao", "Varanasi"],
-      Uttarakhand: ["Dehradoon", "Garhwal (Pauri)", "Haridwar", "Nanital", "Udham Singh Nagar"],
-      WestBengal: ["Kolkata"]
+        AndamanandNicobarIslands: ["Nicobar", "North and Middle Andaman", "South Andaman"],
+        AndhraPradesh: ["Anantapur", "Chittoor", "East Godavari", "Guntur", "Krishna"],
+        ArunachalPradesh: ["Anjaw", "Changlang", "Dibang Valley", "East Kameng", "East Siang"],
+        Assam: ["Baksa", "Barpeta", "Biswanath", "Bongaigaon", "Cachar"],
+        Bihar: ["Araria", "Arwal", "Aurangabad", "Banka", "Begusarai"],
+        Chandigarh: ["Chandigarh"],
+        Chhattisgarh: ["Balod", "Baloda Bazar", "Balrampur", "Bastar", "Bemetara"],
+        DadraandNagarHaveliandDamanAndDiu: ["Dadra and Nagar Haveli", "Daman", "Diu"],
+        Delhi: ["Central Delhi", "East Delhi", "New Delhi", "North Delhi", "North East Delhi"],
+        Goa: ["North Goa", "South Goa"],
+        Gujarat: ["Ahmedabad", "Bharuch", "Rajkot", "Vadodara(Baroda)"],
+        Haryana: ["Ambala", "Bhiwani", "Faridabad", "Fatehabad", "Gurgaon", "Hissar", "Karnal", "Kurukshetra", "Mahendragarh-Narnaul", "Mewat", "Palwal", "Panipat", "Rohtak", "Sirsa", "Sonipat", "Yamuna Nagar"],
+        HimachalPradesh: ["Bilaspur", "Chamba", "Hamirpur", "Kangra", "Kullu", "Mandi", "Shimla", "Solan", "Una"],
+        JammuandKashmir: ["Anantnag", "Jammu", "Kathua", "Rajouri", "Srinagar", "Udhampur"],
+        Jharkhand: ["Dhanbad", "Garhwa", "Hazaribagh"],
+        Karnataka: ["Bangalore", "Dharwad", "Davangere", "Gadag", "Gulbarga", "Kolar", "Mangalore(Dakshin Kannad)", "Mysore", "Udupi"],
+        Kerala: ["Idukki", "Malappuram"],
+        Ladakh: ["Kargil", "Leh"],
+        Lakshadweep: ["Lakshadweep"],
+        MadhyaPradesh: ["Bhopal", "Burhanpur", "Chhatarpur", "Guna", "Gwalior", "Harda", "Indore", "Narsinghpur", "Satna", "Sheopur", "Ujjain"],
+        Maharashtra: ["Ahmednagar", "Amarawati", "Aurangabad", "Chandrapur", "Jalgaon", "Mumbai", "Nagpur", "Nashik", "Pune", "Sangli", "Sholapur"],
+        Manipur: ["Bishnupur", "Chandel", "Churachandpur", "Imphal East", "Imphal West"],
+        Meghalaya: ["East Garo Hills", "East Jaintia Hills", "East Khasi Hills", "North Garo Hills", "Ri Bhoi"],
+        Mizoram: ["Aizawl", "Champhai", "Kolasib", "Lawngtlai", "Lunglei"],
+        Nagaland: ["Dimapur", "Kiphire", "Kohima", "Longleng", "Mokokchung"],
+        Odisha: ["Angul", "Balangir", "Balasore", "Bargarh", "Bhadrak"],
+        Puducherry: ["Karaikal", "Mahe", "Puducherry", "Yanam"],
+        Punjab: ["Amritsar", "Barnala", "Bhatinda", "Faridkot", "Fatehgarh", "Fazilka", "Ferozpur", "Gurdaspur", "Hoshiarpur", "Jalandhar", "kapurthala", "Ludhiana", "Mansa", "Mohali", "Muktsar", "Nawanshahr", "Pathankot", "Patiala", "Ropar (Rupnagar)", "Sangrur"],
+        Rajasthan: ["Ajmer", "Alwar", "Kota"],
+        Sikkim: ["East Sikkim", "North Sikkim", "South Sikkim", "West Sikkim"],
+        TamilNadu: ["Ariyalur", "Chengalpattu", "Chennai", "Coimbatore", "Cuddalore"],
+        Telangana: ["Hyderabad", "Warangal"],
+        Tripura: ["Dhalai", "Gomati", "Khowai", "North Tripura", "Sepahijala"],
+        UttarPradesh: ["Agra", "Aligarh", "Allahabad", "Ambedkarnagar", "Auraiya", "Azamgarh", "Badaun", "Baghpat", "Bahraich", "Ballia", "Balrampur", "Banda", "Barabanki", "Bareilly", "Basti", "Bijnor", "Bulandshahar", "Chitrakut", "Deoria", "Etah", "Faizabad", "Farukhabad", "Firozabad", "Gautam Budh Nagar", "Ghaziabad", "Gonda", "Gorakhpur", "Hamirpur", "Hardoi", "Hathras", "Jalaun (Orai)", "Jaunpur", "Jhansi", "Jyotiba Phule Nagar", "Kannuj", "Kanpur", "Kaushambi", "Khiri (Lakhimpur)", "Lakhimpur", "Lalitpur", "Lucknow", "Maharajganj", "Mahoba", "Mainpuri", "Mathura", "Meerut", "Mirzapur", "Muradabad", "Muzaffarnagar", "Padrauna(Kusinagar)", "Pillibhit", "Pratapgarh", "Raebarelli", "Rampur", "Saharanpur", "Sant Kabir Nagar", "Shahjahanpur", "Sitapur", "Sultanpur", "Unnao", "Varanasi"],
+        Uttarakhand: ["Dehradoon", "Garhwal (Pauri)", "Haridwar", "Nanital", "Udham Singh Nagar"],
+        WestBengal: ["Kolkata"]
 
-      // Add more states and their districts as needed
+        // Add more states and their districts as needed
     };
 
     function updateDistricts() {
-      const statePicker = document.getElementById("state-picker");
-      const districtPicker = document.getElementById("district-picker");
-      const selectedState = statePicker.value;
+        const statePicker = document.getElementById("state-picker");
+        const districtPicker = document.getElementById("district-picker");
+        const selectedState = statePicker.value;
 
-      // Clear previous districts
-      districtPicker.innerHTML = '<option value="">Select a District</option>';
+        // Clear previous districts
+        districtPicker.innerHTML = '<option value="">Select a District</option>';
 
-      if (selectedState && districtsByState[selectedState]) {
-        // Enable the district dropdown and populate with relevant districts
-        districtPicker.disabled = false;
-        districtsByState[selectedState].forEach(district => {
-          const option = document.createElement("option");
-          option.value = district;
-          option.textContent = district;
-          districtPicker.appendChild(option);
-        });
-      } else {
-        districtPicker.disabled = true;
-      }
+        if (selectedState && districtsByState[selectedState]) {
+            // Enable the district dropdown and populate with relevant districts
+            districtPicker.disabled = false;
+            districtsByState[selectedState].forEach(district => {
+                const option = document.createElement("option");
+                option.value = district;
+                option.textContent = district;
+                districtPicker.appendChild(option);
+            });
+        } else {
+            districtPicker.disabled = true;
+        }
     }
 
     function getPomegranatePrice() {
-      const date = new Date(document.getElementById('date-picker').value);
-      const state = document.getElementById('state-picker').value;
-      const district = document.getElementById('district-picker').value;
-      const today = new Date();
-      const maxDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 10); // 10 days from today
+        const date = new Date(document.getElementById('date-picker').value);
+        const state = document.getElementById('state-picker').value;
+        const district = document.getElementById('district-picker').value;
+        const today = new Date();
+        const maxDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 10); // 10 days from today
 
-      if (!state || !district) {
-        alert("Please select a state and a district.");
-        return;
-      }
+        if (!state || !district) {
+            alert("Please select a state and a district.");
+            return;
+        }
 
-      if (date > maxDate) {
-        alert("Please select a date within the next 10 days.");
-        document.getElementById('date-picker').value = ''; // Reset the date picker value
-        return;
-      }
+        if (date > maxDate) {
+            alert("Please select a date within the next 10 days.");
+            document.getElementById('date-picker').value = ''; // Reset the date picker value
+            return;
+        }
 
-      if (date < today) {
-        alert("Please select a date starting from today.");
-        document.getElementById('date-picker').value = ''; // Reset the date picker value
-        return;
-      }
+        if (date < today) {
+            alert("Please select a date starting from today.");
+            document.getElementById('date-picker').value = ''; // Reset the date picker value
+            return;
+        }
 
-      if (date) {
-        // Here you would integrate with your model to get the price prediction.
-        // For demonstration, let's assume a dummy price is returned.
-        const dummyPrice = '$3.50 per kg';
-        document.getElementById('price-display').textContent = `Predicted price for ${district}, ${state} on ${date.toLocaleDateString()}: ${dummyPrice}`;
-      }
+        if (date) {
+            // Here you would integrate with your model to get the price prediction.
+            // For demonstration, let's assume a dummy price is returned.
+            const dummyPrice = '$3.50 per kg';
+            document.getElementById('price-display').textContent = 'Predictedprice for ${district}, ${state} on ${date.toLocaleDateString()}: ${dummyPrice}';
+        }
     }
-  </script>
-  <!-- Optional JavaScript -->
-  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+</script>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
     integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
     crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
     integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
     crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
     integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
     crossorigin="anonymous"></script>
 </script>
